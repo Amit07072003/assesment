@@ -69,7 +69,7 @@ export default function Portfolio({ onOpenAuditModal }: PortfolioProps) {
 
         {/* Enterprise Case Studies Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-7">
-          {filteredProjects.map((project, idx) => (
+          {filteredProjects.map((project) => (
             <div key={project.id} className="rounded-2xl bg-white border border-[#D8E1F0] overflow-hidden hover:border-[#004BFF]/60 hover:shadow-[0_20px_40px_-15px_rgba(0,75,255,0.12)] transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between shadow-xs group h-full">
                 <div className="p-4 sm:p-7">
                   {/* Header: Client & Category Badge */}

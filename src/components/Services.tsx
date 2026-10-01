@@ -122,7 +122,7 @@ export default function Services({ onSelectServiceForAudit }: ServicesProps) {
 
         {/* Enterprise Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {filteredServices.map((service, idx) => (
+          {filteredServices.map((service) => (
               <div key={service.id} className="rounded-2xl bg-white border border-[#D8E1F0] p-4 sm:p-7 flex flex-col justify-between hover:border-[#004BFF]/60 hover:shadow-[0_20px_40px_-15px_rgba(0,75,255,0.12)] transition-all duration-300 hover:-translate-y-1 shadow-sm group h-full">
                 <div>
                   {/* Header / Icon & Metric Pill */}

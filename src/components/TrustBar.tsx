@@ -1,37 +1,38 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { Star, ShieldCheck, Award } from "lucide-react";
 import { reviewPlatforms, verifiedClients } from "@/data/brands";
 
 export default function TrustBar() {
   const trackRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number>(0);
   const posRef = useRef(0);
   const pausedRef = useRef(false);
   const halfWidthRef = useRef(0);
 
-  const animate = useCallback(() => {
-    const track = trackRef.current;
-    if (track && !pausedRef.current) {
-      // Measure half-width once after mount (when DOM has rendered)
-      if (halfWidthRef.current === 0) {
-        halfWidthRef.current = track.scrollWidth / 2;
-      }
-      posRef.current -= 0.6; // px per frame ≈ 36px/s at 60fps
-      if (halfWidthRef.current > 0 && Math.abs(posRef.current) >= halfWidthRef.current) {
-        posRef.current = 0;
-      }
-      track.style.transform = `translateX(${posRef.current}px)`;
-    }
-    rafRef.current = requestAnimationFrame(animate);
-  }, []);
-
   useEffect(() => {
-    rafRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [animate]);
+    const track = trackRef.current;
+    let animId: number;
+
+    const animate = () => {
+      if (track && !pausedRef.current) {
+        // Measure half-width once after mount (when DOM has rendered)
+        if (halfWidthRef.current === 0) {
+          halfWidthRef.current = track.scrollWidth / 2;
+        }
+        posRef.current -= 0.6; // px per frame ≈ 36px/s at 60fps
+        if (halfWidthRef.current > 0 && Math.abs(posRef.current) >= halfWidthRef.current) {
+          posRef.current = 0;
+        }
+        track.style.transform = `translateX(${posRef.current}px)`;
+      }
+      animId = requestAnimationFrame(animate);
+    };
+
+    animId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animId);
+  }, []);
 
   return (
     <section className="bg-[#EEF2F9] border-t border-[#D8E1F0] py-7 sm:py-12">

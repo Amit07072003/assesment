@@ -21,8 +21,8 @@ export default function MotionReveal({
   useEffect(() => {
     // Reveal immediately if reduced-motion is preferred
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setIsRevealed(true);
-      return;
+      const raf = requestAnimationFrame(() => setIsRevealed(true));
+      return () => cancelAnimationFrame(raf);
     }
 
     const observer = new IntersectionObserver(
